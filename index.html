@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jackson Kovarik - Software Engineer</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav" id="nav">
+        <div class="nav__container">
+            <a href="#home" class="nav__logo">Jackson Kovarik</a>
+            <div class="nav__menu-container">
+                <div class="nav__menu" id="nav-menu">
+                    <ul class="nav__list">
+                        <li class="nav__item"><a href="#home" class="nav__link">Home</a></li>
+                        <li class="nav__item"><a href="#about" class="nav__link">About</a></li>
+                        <li class="nav__item"><a href="#skills" class="nav__link">Skills</a></li>
+                        <li class="nav__item"><a href="#projects" class="nav__link">Projects</a></li>
+                        <li class="nav__item"><a href="#experience" class="nav__link">Experience</a></li>
+                        <li class="nav__item"><a href="#contact" class="nav__link">Contact</a></li>
+                    </ul>
+                    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+                        <span class="theme-toggle__icon">🌙</span>
+                    </button>
+                </div>
+            </div>
+            <div class="nav__toggle" id="nav-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero__content">
+                <div class="hero__text">
+                    <h1 class="hero__title">
+                        <span id="typed-text"></span><span class="cursor">|</span>
+                    </h1>
+                    <p class="hero__subtitle">Computer Information Systems Student</p>
+                    <p class="hero__description">
+                        Motivated Computer Information Systems student with proven experience in full-stack development, system integration, and team leadership. Passionate about creating innovative solutions that drive measurable results.
+                    </p>
+                    <div class="hero__buttons">
+                        <a href="#projects" class="btn btn--primary">View My Work</a>
+                        <a href="#contact" class="btn btn--outline">Get In Touch</a>
+                    </div>
+                </div>
+                <div class="hero__visual">
+                    <div class="hero__avatar">
+                        <div class="avatar-placeholder">JK</div>
+                    </div>
+                </div>
+            </div>
+            <div class="hero__scroll">
+                <a href="#about" class="scroll-indicator">
+                    <span>Scroll Down</span>
+                    <div class="scroll-arrow">↓</div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="section about" id="about">
+        <div class="container">
+            <div class="section__header">
+                <h2 class="section__title">About Me</h2>
+                <p class="section__subtitle">Get to know me better</p>
+            </div>
+            <div class="about__content">
+                <div class="about__info">
+                    <p class="about__text">
+                        I'm currently pursuing a Computer Information Systems degree at the University of Michigan - Flint, maintaining a 3.9 GPA and expecting to graduate in December 2026. My journey in technology has been driven by curiosity and a desire to solve complex problems through innovative solutions.
+                    </p>
+                    <p class="about__text">
+                        As a current Software Development Intern at Auto-Owners Insurance, I've gained hands-on experience with enterprise-level applications, system integration, and Agile development methodologies. I thrive in collaborative environments and enjoy the challenge of turning ideas into functional, efficient code.
+                    </p>
+                    <div class="about__stats">
+                        <div class="stat">
+                            <span class="stat__number">3.9</span>
+                            <span class="stat__label">GPA</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat__number">15%</span>
+                            <span class="stat__label">Market Expansion</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat__number">50K+</span>
+                            <span class="stat__label">Customers Served</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="about__education">
+                    <h3>Education</h3>
+                    <div class="education-card">
+                        <div class="education__icon">🎓</div>
+                        <div class="education__details">
+                            <h4>Bachelor of Science - Computer Information Systems</h4>
+                            <p>University of Michigan - Flint</p>
+                            <p class="education__date">Expected December 2026</p>
+                            <div class="status status--info">3.9 GPA</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section class="section skills" id="skills">
+        <div class="container">
+            <div class="section__header">
+                <h2 class="section__title">Skills & Technologies</h2>
+                <p class="section__subtitle">My technical expertise</p>
+            </div>
+            <div class="skills__content">
+                <div class="skills__category">
+                    <h3>Programming Languages</h3>
+                    <div class="skills__grid">
+                        <div class="skill-card skill-card--advanced">
+                            <div class="skill__icon">☕</div>
+                            <div class="skill__info">
+                                <h4>Java</h4>
+                                <span class="skill__level">Advanced</span>
+                            </div>
+                        </div>
+                        <div class="skill-card skill-card--intermediate">
+                            <div class="skill__icon">⚡</div>
+                            <div class="skill__info">
+                                <h4>C++</h4>
+                                <span class="skill__level">Intermediate</span>
+                            </div>
+                        </div>
+                        <div class="skill-card skill-card--intermediate">
+                            <div class="skill__icon">🐍</div>
+                            <div class="skill__info">
+                                <h4>Python</h4>
+                                <span class="skill__level">Intermediate</span>
+                            </div>
+                        </div>
+                        <div class="skill-card skill-card--intermediate">
+                            <div class="skill__icon">🌐</div>
+                            <div class="skill__info">
+                                <h4>HTML/CSS</h4>
+                                <span class="skill__level">Intermediate</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="skills__category">
+                    <h3>Frameworks & Technologies</h3>
+                    <div class="skills__grid">
+                        <div class="skill-card skill-card--intermediate-plus">
+                            <div class="skill__icon">📱</div>
+                            <div class="skill__info">
+                                <h4>React Native/Expo</h4>
+                                <span class="skill__level">Intermediate+</span>
+                            </div>
+                        </div>
+                        <div class="skill-card skill-card--intermediate-plus">
+                            <div class="skill__icon">🚀</div>
+                            <div class="skill__info">
+                                <h4>Spring Boot</h4>
+                                <span class="skill__level">Intermediate+</span>
+                            </div>
+                        </div>
+                        <div class="skill-card skill-card--intermediate">
+                            <div class="skill__icon">🔥</div>
+                            <div class="skill__info">
+                                <h4>Firebase</h4>
+                                <span class="skill__level">Intermediate</span>
+                            </div>
+                        </div>
+                        <div class="skill-card skill-card--intermediate">
+                            <div class="skill__icon">🐘</div>
+                            <div class="skill__info">
+                                <h4>PostgreSQL</h4>
+                                <span class="skill__level">Intermediate</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="skills__category">
+                    <h3>Tools & Platforms</h3>
+                    <div class="tools__list">
+                        <span class="tool-tag">Git</span>
+                        <span class="tool-tag">GitHub</span>
+                        <span class="tool-tag">BitBucket</span>
+                        <span class="tool-tag">Figma</span>
+                        <span class="tool-tag">Docker</span>
+                        <span class="tool-tag">VS Code</span>
+                        <span class="tool-tag">IntelliJ IDEA</span>
+                        <span class="tool-tag">Windows</span>
+                        <span class="tool-tag">macOS</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="section projects" id="projects">
+        <div class="container">
+            <div class="section__header">
+                <h2 class="section__title">Featured Projects</h2>
+                <p class="section__subtitle">Some of my recent work</p>
+            </div>
+            <div class="projects__grid">
+                <div class="project-card">
+                    <div class="project__header">
+                        <h3 class="project__title">Termination Station</h3>
+                        <p class="project__subtitle">Face-Tracking Sentry Turret</p>
+                    </div>
+                    <p class="project__description">
+                        Led 4-person development team implementing computer vision algorithms and real-time tracking system for an Arduino-based face-tracking nerf turret.
+                    </p>
+                    <div class="project__achievements">
+                        <div class="achievement">
+                            <span class="achievement__icon">🎯</span>
+                            <span>95% face detection accuracy within 180° radius</span>
+                        </div>
+                        <div class="achievement">
+                            <span class="achievement__icon">💰</span>
+                            <span>Maintained $100 budget constraint</span>
+                        </div>
+                        <div class="achievement">
+                            <span class="achievement__icon">⚡</span>
+                            <span>40% faster target acquisition</span>
+                        </div>
+                    </div>
+                    <div class="project__tech">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">Arduino</span>
+                        <span class="tech-tag">Computer Vision</span>
+                        <span class="tech-tag">Team Leadership</span>
+                    </div>
+                    <div class="project__links">
+                        <a href="#" class="btn btn--sm btn--outline">GitHub</a>
+                        <a href="#" class="btn btn--sm btn--primary">Demo</a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project__header">
+                        <h3 class="project__title">Financial Fellows</h3>
+                        <p class="project__subtitle">Expense Tracking Mobile App</p>
+                    </div>
+                    <p class="project__description">
+                        Developed cross-platform mobile application with secure authentication and real-time data synchronization following complete SDLC methodology.
+                    </p>
+                    <div class="project__achievements">
+                        <div class="achievement">
+                            <span class="achievement__icon">🏗️</span>
+                            <span>Architected scalable backend using Firebase</span>
+                        </div>
+                        <div class="achievement">
+                            <span class="achievement__icon">🎨</span>
+                            <span>Designed responsive UI with Material Design</span>
+                        </div>
+                        <div class="achievement">
+                            <span class="achievement__icon">📊</span>
+                            <span>Interactive data visualization components</span>
+                        </div>
+                    </div>
+                    <div class="project__tech">
+                        <span class="tech-tag">React Native</span>
+                        <span class="tech-tag">Firebase</span>
+                        <span class="tech-tag">Redux</span>
+                        <span class="tech-tag">Figma</span>
+                    </div>
+                    <div class="project__links">
+                        <a href="#" class="btn btn--sm btn--outline">GitHub</a>
+                        <a href="#" class="btn btn--sm btn--primary">Demo</a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project__header">
+                        <h3 class="project__title">Drinking Buddy</h3>
+                        <p class="project__subtitle">Cocktail Helper Mobile App</p>
+                        <div class="status status--warning">In Development</div>
+                    </div>
+                    <p class="project__description">
+                        Building cross-platform full-stack mobile application with microservices architecture and RESTful API design for cocktail recommendations and bartender education.
+                    </p>
+                    <div class="project__achievements">
+                        <div class="achievement">
+                            <span class="achievement__icon">🔧</span>
+                            <span>Developing backend with Java Spring Boot</span>
+                        </div>
+                        <div class="achievement">
+                            <span class="achievement__icon">🗃️</span>
+                            <span>PostgreSQL database optimization</span>
+                        </div>
+                        <div class="achievement">
+                            <span class="achievement__icon">🔒</span>
+                            <span>Secure authentication through Firebase</span>
+                        </div>
+                    </div>
+                    <div class="project__tech">
+                        <span class="tech-tag">Java</span>
+                        <span class="tech-tag">Spring Boot</span>
+                        <span class="tech-tag">PostgreSQL</span>
+                        <span class="tech-tag">Firebase</span>
+                    </div>
+                    <div class="project__links">
+                        <a href="#" class="btn btn--sm btn--outline">GitHub</a>
+                        <a href="#" class="btn btn--sm btn--primary">Demo</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section class="section experience" id="experience">
+        <div class="container">
+            <div class="section__header">
+                <h2 class="section__title">Professional Experience</h2>
+                <p class="section__subtitle">My career journey</p>
+            </div>
+            <div class="experience__timeline">
+                <div class="timeline-item timeline-item--current">
+                    <div class="timeline__marker">
+                        <div class="timeline__dot"></div>
+                    </div>
+                    <div class="timeline__content">
+                        <div class="experience-card">
+                            <div class="experience__header">
+                                <h3>Software Development Intern</h3>
+                                <div class="experience__company">Auto-Owners Insurance</div>
+                                <div class="experience__details">
+                                    <span class="experience__location">Lansing, MI</span>
+                                    <span class="experience__period">May 2026 - Present</span>
+                                </div>
+                                <div class="status status--success">Current</div>
+                            </div>
+                            <p class="experience__description">
+                                Working on critical system integration projects in an Agile environment, developing production tools and optimizing performance.
+                            </p>
+                            <div class="experience__achievements">
+                                <div class="achievement">
+                                    <span class="achievement__icon">📈</span>
+                                    <span>Expanded company market reach by 15% across 4 new states</span>
+                                </div>
+                                <div class="achievement">
+                                    <span class="achievement__icon">👥</span>
+                                    <span>Enabled seamless policy management for 50,000+ new customers</span>
+                                </div>
+                                <div class="achievement">
+                                    <span class="achievement__icon">⚡</span>
+                                    <span>Reduced policy rate analysis time by 60%</span>
+                                </div>
+                                <div class="achievement">
+                                    <span class="achievement__icon">⏰</span>
+                                    <span>Improved customer service response times from 48 hours to 4 hours</span>
+                                </div>
+                            </div>
+                            <div class="experience__tech">
+                                <span class="tech-tag">Java</span>
+                                <span class="tech-tag">Spring Boot</span>
+                                <span class="tech-tag">SQL</span>
+                                <span class="tech-tag">Agile</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline__marker">
+                        <div class="timeline__dot"></div>
+                    </div>
+                    <div class="timeline__content">
+                        <div class="experience-card">
+                            <div class="experience__header">
+                                <h3>Data Cable Technician</h3>
+                                <div class="experience__company">Amcomm Telecommunications</div>
+                                <div class="experience__details">
+                                    <span class="experience__location">Brighton, MI</span>
+                                    <span class="experience__period">July 2022 - August 2024</span>
+                                </div>
+                            </div>
+                            <p class="experience__description">
+                                Executed large-scale cable installation projects with focus on quality standards and team collaboration.
+                            </p>
+                            <div class="experience__achievements">
+                                <div class="achievement">
+                                    <span class="achievement__icon">🔧</span>
+                                    <span>Completed 200+ cable installation projects</span>
+                                </div>
+                                <div class="achievement">
+                                    <span class="achievement__icon">✅</span>
+                                    <span>Maintained 99.5% quality standard compliance</span>
+                                </div>
+                                <div class="achievement">
+                                    <span class="achievement__icon">🛡️</span>
+                                    <span>Zero safety incidents over 2+ years</span>
+                                </div>
+                                <div class="achievement">
+                                    <span class="achievement__icon">⚡</span>
+                                    <span>Reduced installation time by 25%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section contact" id="contact">
+        <div class="container">
+            <div class="section__header">
+                <h2 class="section__title">Get In Touch</h2>
+                <p class="section__subtitle">Let's work together</p>
+            </div>
+            <div class="contact__content">
+                <div class="contact__info">
+                    <h3>Let's Connect</h3>
+                    <p>I'm always interested in new opportunities and collaborations. Whether you have a project in mind or just want to chat about technology, feel free to reach out!</p>
+                    <div class="contact__details">
+                        <div class="contact-item">
+                            <div class="contact__icon">📧</div>
+                            <div>
+                                <h4>Email</h4>
+                                <a href="mailto:JacksonKovarik@gmail.com">JacksonKovarik@gmail.com</a>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact__icon">📞</div>
+                            <div>
+                                <h4>Phone</h4>
+                                <a href="tel:(517) 304-0336">(517) 304-0336</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="contact__social">
+                        <a href="https://www.linkedin.com/in/jackson-kovarik-660019288/" target="_blank" class="social-link">
+                            <span class="social-icon">💼</span>
+                            LinkedIn
+                        </a>
+                        <a href="https://github.com/JacksonKovarik" target="_blank" class="social-link">
+                            <span class="social-icon">💻</span>
+                            GitHub
+                        </a>
+                    </div>
+                </div>
+                <div class="contact__form">
+                    <form class="form" id="contact-form">
+                        <div class="form-group">
+                            <label for="name" class="form-label">Name</label>
+                            <input type="text" id="name" name="name" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" id="email" name="email" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="subject" class="form-label">Subject</label>
+                            <input type="text" id="subject" name="subject" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message" class="form-label">Message</label>
+                            <textarea id="message" name="message" class="form-control" rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn--primary btn--full-width">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__content">
+                <p>&copy; 2025 Jackson Kovarik. All rights reserved.</p>
+                <p>Built with passion and modern web technologies.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
