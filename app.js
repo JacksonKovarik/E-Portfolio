@@ -1,16 +1,31 @@
-// Portfolio JavaScript functionality
+// Minimal JavaScript - Scroll Effects Moved to CSS
 document.addEventListener('DOMContentLoaded', function() {
-    // DOM Elements
-    const nav = document.getElementById('nav');
-    const navToggle = document.getElementById('nav-toggle');
-    const navMenu = document.getElementById('nav-menu');
-    const navMenuContainer = document.querySelector('.nav__menu-container');
-    const navLinks = document.querySelectorAll('.nav__link');
-    const themeToggle = document.getElementById('theme-toggle');
-    const sections = document.querySelectorAll('section[id]');
-    const contactForm = document.getElementById('contact-form');
+    // Cache DOM Elements once to reduce queries
+    const domCache = {
+        nav: document.getElementById('nav'),
+        navToggle: document.getElementById('nav-toggle'),
+        navMenu: document.getElementById('nav-menu'),
+        navMenuContainer: document.querySelector('.nav__menu-container'),
+        navLinks: document.querySelectorAll('.nav__link'),
+        themeToggle: document.getElementById('theme-toggle'),
+        themeIcon: document.querySelector('.theme-toggle__icon'),
+        sections: document.querySelectorAll('section[id]'),
+        contactForm: document.getElementById('contact-form'),
+        body: document.body,
+        typedTextSpan: document.getElementById("typed-text"),
+        cursorSpan: document.querySelector(".cursor")
+    };
 
-    // Theme Management
+    // Utility functions for performance
+    const debounce = (func, delay) => {
+        let timeoutId;
+        return (...args) => {
+            clearTimeout(timeoutId);
+            timeoutId = setTimeout(() => func.apply(null, args), delay);
+        };
+    };
+
+    // Theme Management - No changes needed
     class ThemeManager {
         constructor() {
             this.currentTheme = localStorage.getItem('theme') || 
@@ -21,8 +36,7 @@ document.addEventListener('DOMContentLoaded', function() {
         init() {
             this.applyTheme(this.currentTheme);
             this.updateThemeIcon();
-            
-            themeToggle?.addEventListener('click', () => {
+            domCache.themeToggle?.addEventListener('click', () => {
                 this.toggle();
             });
         }
@@ -40,14 +54,13 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         updateThemeIcon() {
-            const icon = document.querySelector('.theme-toggle__icon');
-            if (icon) {
-                icon.textContent = this.currentTheme === 'light' ? '🌙' : '☀️';
+            if (domCache.themeIcon) {
+                domCache.themeIcon.textContent = this.currentTheme === 'light' ? '🌙' : '☀️';
             }
         }
     }
 
-    // Navigation Management
+    // Navigation Management - Minimal JavaScript
     class Navigation {
         constructor() {
             this.isMenuOpen = false;
@@ -55,37 +68,19 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         init() {
-            this.setupScrollEffect();
+            // Only essential JavaScript - scroll effects moved to CSS
             this.setupMobileMenu();
             this.setupSmoothScroll();
             this.setupActiveLink();
         }
 
-        setupScrollEffect() {
-            let lastScrollY = window.scrollY;
-            
-            window.addEventListener('scroll', () => {
-                const currentScrollY = window.scrollY;
-                
-                if (nav) {
-                    if (currentScrollY > 100) {
-                        nav.classList.add('scrolled');
-                    } else {
-                        nav.classList.remove('scrolled');
-                    }
-                }
-                
-                lastScrollY = currentScrollY;
-            });
-        }
-
         setupMobileMenu() {
-            navToggle?.addEventListener('click', () => {
+            domCache.navToggle?.addEventListener('click', () => {
                 this.toggleMobileMenu();
             });
 
             // Close menu when clicking on a link
-            navLinks.forEach(link => {
+            domCache.navLinks.forEach(link => {
                 link.addEventListener('click', () => {
                     if (this.isMenuOpen) {
                         this.toggleMobileMenu();
@@ -95,7 +90,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             // Close menu when clicking outside
             document.addEventListener('click', (e) => {
-                if (this.isMenuOpen && !nav?.contains(e.target)) {
+                if (this.isMenuOpen && !domCache.nav?.contains(e.target)) {
                     this.toggleMobileMenu();
                 }
             });
@@ -104,25 +99,23 @@ document.addEventListener('DOMContentLoaded', function() {
         toggleMobileMenu() {
             this.isMenuOpen = !this.isMenuOpen;
             
-            navToggle?.classList.toggle('active');
-            navMenu?.classList.toggle('active');
-            navMenuContainer?.classList.toggle('active');
-            
-            // Prevent body scroll when menu is open
-            document.body.style.overflow = this.isMenuOpen ? 'hidden' : '';
+            // Use CSS classes for all state changes
+            domCache.navToggle?.classList.toggle('active');
+            domCache.navMenu?.classList.toggle('active');
+            domCache.navMenuContainer?.classList.toggle('active');
+            domCache.body.classList.toggle('menu-open', this.isMenuOpen);
         }
 
         setupSmoothScroll() {
-            navLinks.forEach(link => {
+            // Keep this as it's more reliable than CSS scroll-behavior in some cases
+            domCache.navLinks.forEach(link => {
                 link.addEventListener('click', (e) => {
                     e.preventDefault();
-                    
                     const targetId = link.getAttribute('href');
                     const targetSection = document.querySelector(targetId);
                     
                     if (targetSection) {
-                        const offsetTop = targetSection.offsetTop - 70; // Account for fixed nav
-                        
+                        const offsetTop = targetSection.offsetTop - 70;
                         window.scrollTo({
                             top: offsetTop,
                             behavior: 'smooth'
@@ -133,84 +126,42 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         setupActiveLink() {
-            const observerOptions = {
-                root: null,
-                rootMargin: '-20% 0px -80% 0px',
-                threshold: 0
-            };
-
+            // Minimal IntersectionObserver - only for active states
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         const activeLink = document.querySelector(`.nav__link[href="#${entry.target.id}"]`);
                         
                         // Remove active class from all links
-                        navLinks.forEach(link => link.classList.remove('active'));
-                        
+                        domCache.navLinks.forEach(link => link.classList.remove('active'));
                         // Add active class to current link
                         activeLink?.classList.add('active');
                     }
                 });
-            }, observerOptions);
+            }, {
+                root: null,
+                rootMargin: '-20% 0px -80% 0px',
+                threshold: 0
+            });
 
-            sections.forEach(section => {
+            domCache.sections.forEach(section => {
                 observer.observe(section);
             });
         }
     }
 
-    // Animation Management
-    class AnimationManager {
-        constructor() {
-            this.init();
-        }
-
-        init() {
-            this.setupScrollAnimations();
-            this.setupLoadAnimations();
-        }
-
-        setupScrollAnimations() {
-            const observerOptions = {
-                root: null,
-                rootMargin: '0px 0px -100px 0px',
-                threshold: 0.1
-            };
-
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                    }
-                });
-            }, observerOptions);
-
-            // Add fade-in class to elements and observe them
-            const animatedElements = document.querySelectorAll(
-                '.section__header, .project-card, .skill-card, .experience-card, .education-card, .contact-item, .about__stats .stat'
-            );
-
-            animatedElements.forEach((element, index) => {
-                element.classList.add('fade-in');
-                element.style.transitionDelay = `${index * 0.1}s`;
-                observer.observe(element);
-            });
-        }
-
-        setupLoadAnimations() {
-            // Add loading animation to hero elements
-            const heroElements = document.querySelectorAll('.hero__title, .hero__subtitle, .hero__description, .hero__buttons, .hero__avatar');
-            
-            heroElements.forEach((element, index) => {
-                element.classList.add('loading');
-                element.style.animationDelay = `${index * 0.2}s`;
-            });
-        }
-    }
-
-    // Form Management
+    // Form Management - CSS-based validation states
     class FormManager {
         constructor() {
+            this.validationRules = {
+                name: { minLength: 2, message: 'Name must be at least 2 characters long' },
+                email: { 
+                    pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, 
+                    message: 'Please enter a valid email address' 
+                },
+                subject: { minLength: 5, message: 'Subject must be at least 5 characters long' },
+                message: { minLength: 10, message: 'Message must be at least 10 characters long' }
+            };
             this.init();
         }
 
@@ -219,60 +170,45 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         setupContactForm() {
-            contactForm?.addEventListener('submit', (e) => {
+            domCache.contactForm?.addEventListener('submit', (e) => {
                 e.preventDefault();
                 this.handleFormSubmission(e.target);
             });
 
-            // Add real-time validation
-            const formInputs = contactForm?.querySelectorAll('input, textarea');
+            // Add real-time validation with debounced input
+            const formInputs = domCache.contactForm?.querySelectorAll('input, textarea');
             formInputs?.forEach(input => {
                 input.addEventListener('blur', () => {
                     this.validateField(input);
                 });
-
-                input.addEventListener('input', () => {
+                
+                // Debounce input validation to reduce function calls
+                input.addEventListener('input', debounce(() => {
                     this.clearFieldError(input);
-                });
+                }, 300));
             });
         }
 
         validateField(field) {
             const value = field.value.trim();
             const fieldName = field.name;
+            const rule = this.validationRules[fieldName];
+            
+            if (!rule) return true;
+
             let isValid = true;
             let errorMessage = '';
 
             // Clear previous errors
             this.clearFieldError(field);
 
-            // Validation rules
-            switch (fieldName) {
-                case 'name':
-                    if (value.length < 2) {
-                        isValid = false;
-                        errorMessage = 'Name must be at least 2 characters long';
-                    }
-                    break;
-                case 'email':
-                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                    if (!emailRegex.test(value)) {
-                        isValid = false;
-                        errorMessage = 'Please enter a valid email address';
-                    }
-                    break;
-                case 'subject':
-                    if (value.length < 5) {
-                        isValid = false;
-                        errorMessage = 'Subject must be at least 5 characters long';
-                    }
-                    break;
-                case 'message':
-                    if (value.length < 10) {
-                        isValid = false;
-                        errorMessage = 'Message must be at least 10 characters long';
-                    }
-                    break;
+            // Validation logic
+            if (rule.minLength && value.length < rule.minLength) {
+                isValid = false;
+                errorMessage = rule.message;
+            } else if (rule.pattern && !rule.pattern.test(value)) {
+                isValid = false;
+                errorMessage = rule.message;
             }
 
             if (!isValid) {
@@ -283,41 +219,33 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         showFieldError(field, message) {
-            field.style.borderColor = 'var(--color-error)';
+            // Use CSS class instead of inline styles
+            field.classList.add('form-control--error');
             
             // Create or update error message
             let errorElement = field.parentNode.querySelector('.field-error');
             if (!errorElement) {
                 errorElement = document.createElement('span');
                 errorElement.className = 'field-error';
-                errorElement.style.cssText = `
-                    color: var(--color-error);
-                    font-size: var(--font-size-sm);
-                    margin-top: var(--space-4);
-                    display: block;
-                `;
                 field.parentNode.appendChild(errorElement);
             }
-            
             errorElement.textContent = message;
         }
 
         clearFieldError(field) {
-            field.style.borderColor = '';
+            field.classList.remove('form-control--error');
             const errorElement = field.parentNode.querySelector('.field-error');
-            if (errorElement) {
-                errorElement.remove();
-            }
+            errorElement?.remove();
         }
 
         handleFormSubmission(form) {
             const formData = new FormData(form);
             const data = Object.fromEntries(formData);
-            
+
             // Validate all fields
             const fields = form.querySelectorAll('input, textarea');
             let isFormValid = true;
-
+            
             fields.forEach(field => {
                 if (!this.validateField(field)) {
                     isFormValid = false;
@@ -329,18 +257,21 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
 
-            // Show loading state
+            // Show loading state using CSS class
             const submitButton = form.querySelector('button[type="submit"]');
             const originalText = submitButton.textContent;
+            
+            submitButton.classList.add('btn--loading');
             submitButton.textContent = 'Sending...';
             submitButton.disabled = true;
 
-            // Simulate form submission (replace with actual submission logic)
+            // Simulate form submission
             setTimeout(() => {
                 this.showNotification('Thank you for your message! I\'ll get back to you soon.', 'success');
                 form.reset();
                 
                 // Reset button
+                submitButton.classList.remove('btn--loading');
                 submitButton.textContent = originalText;
                 submitButton.disabled = false;
             }, 2000);
@@ -349,339 +280,104 @@ document.addEventListener('DOMContentLoaded', function() {
         showNotification(message, type = 'info') {
             // Remove existing notification
             const existingNotification = document.querySelector('.notification');
-            if (existingNotification) {
-                existingNotification.remove();
-            }
+            existingNotification?.remove();
 
-            // Create notification
+            // Create notification using CSS classes (no inline styles)
             const notification = document.createElement('div');
             notification.className = `notification notification--${type}`;
-            notification.style.cssText = `
-                position: fixed;
-                top: 100px;
-                right: var(--space-20);
-                padding: var(--space-16) var(--space-20);
-                background: var(--color-surface);
-                border: 1px solid var(--color-border);
-                border-left: 4px solid var(--color-${type === 'error' ? 'error' : type === 'success' ? 'success' : 'info'});
-                border-radius: var(--radius-base);
-                box-shadow: var(--shadow-lg);
-                max-width: 400px;
-                z-index: 10000;
-                transform: translateX(120%);
-                transition: transform var(--duration-normal) var(--ease-standard);
-            `;
-
             notification.innerHTML = `
-                <div style="display: flex; align-items: center; gap: var(--space-12);">
-                    <span style="font-size: var(--font-size-lg);">
+                <div class="notification__content">
+                    <div class="notification__icon">
                         ${type === 'error' ? '❌' : type === 'success' ? '✅' : 'ℹ️'}
-                    </span>
-                    <span style="color: var(--color-text);">${message}</span>
-                    <button onclick="this.parentNode.parentNode.remove()" style="
-                        background: none; 
-                        border: none; 
-                        color: var(--color-text-secondary); 
-                        cursor: pointer;
-                        font-size: var(--font-size-lg);
-                        margin-left: auto;
-                    ">×</button>
+                    </div>
+                    <span class="notification__message">${message}</span>
+                    <button class="notification__close" aria-label="Close notification">&times;</button>
                 </div>
             `;
 
+            // Add to DOM
             document.body.appendChild(notification);
 
-            // Animate in
-            setTimeout(() => {
-                notification.style.transform = 'translateX(0)';
-            }, 100);
+            // Show notification with CSS animation (no JavaScript transforms)
+            requestAnimationFrame(() => {
+                notification.classList.add('notification--show');
+            });
 
-            // Auto-remove after 5 seconds
+            // Close button functionality
+            const closeButton = notification.querySelector('.notification__close');
+            closeButton.addEventListener('click', () => {
+                this.hideNotification(notification);
+            });
+
+            // Auto-hide after 5 seconds
             setTimeout(() => {
-                if (notification.parentNode) {
-                    notification.style.transform = 'translateX(120%)';
-                    setTimeout(() => notification.remove(), 300);
-                }
+                this.hideNotification(notification);
             }, 5000);
         }
-    }
 
-    // Utility Functions
-    class Utils {
-        static debounce(func, wait, immediate) {
-            let timeout;
-            return function executedFunction(...args) {
-                const later = () => {
-                    timeout = null;
-                    if (!immediate) func(...args);
-                };
-                const callNow = immediate && !timeout;
-                clearTimeout(timeout);
-                timeout = setTimeout(later, wait);
-                if (callNow) func(...args);
-            };
-        }
-
-        static throttle(func, limit) {
-            let inThrottle;
-            return function() {
-                const args = arguments;
-                const context = this;
-                if (!inThrottle) {
-                    func.apply(context, args);
-                    inThrottle = true;
-                    setTimeout(() => inThrottle = false, limit);
-                }
-            };
-        }
-    }
-
-    // Interactive Enhancements
-    class InteractiveEnhancements {
-        constructor() {
-            this.init();
-        }
-
-        init() {
-            this.setupHoverEffects();
-            this.setupClickEffects();
-            this.setupKeyboardNavigation();
-            this.setupParallaxEffects();
-        }
-
-        setupHoverEffects() {
-            // Add ripple effect to buttons
-            const buttons = document.querySelectorAll('.btn');
-            buttons.forEach(button => {
-                button.addEventListener('click', this.createRipple);
-            });
-
-            // Add tilt effect to cards
-            const cards = document.querySelectorAll('.project-card, .skill-card, .experience-card');
-            cards.forEach(card => {
-                card.addEventListener('mouseenter', (e) => {
-                    card.style.transform = 'translateY(-8px) rotateX(2deg)';
-                });
-
-                card.addEventListener('mouseleave', (e) => {
-                    card.style.transform = '';
-                });
-            });
-        }
-
-        createRipple(event) {
-            const button = event.currentTarget;
-            const ripple = document.createElement('span');
-            const diameter = Math.max(button.clientWidth, button.clientHeight);
-            const radius = diameter / 2;
-
-            ripple.style.width = ripple.style.height = `${diameter}px`;
-            ripple.style.left = `${event.clientX - button.offsetLeft - radius}px`;
-            ripple.style.top = `${event.clientY - button.offsetTop - radius}px`;
-            ripple.classList.add('ripple');
-
-            const rippleCSS = `
-                .ripple {
-                    position: absolute;
-                    border-radius: 50%;
-                    background-color: rgba(255, 255, 255, 0.3);
-                    transform: scale(0);
-                    animation: ripple-animation 0.6s linear;
-                }
-                @keyframes ripple-animation {
-                    to {
-                        transform: scale(4);
-                        opacity: 0;
-                    }
-                }
-            `;
-
-            if (!document.querySelector('#ripple-styles')) {
-                const style = document.createElement('style');
-                style.id = 'ripple-styles';
-                style.textContent = rippleCSS;
-                document.head.appendChild(style);
-            }
-
-            const existingRipple = button.querySelector('.ripple');
-            if (existingRipple) {
-                existingRipple.remove();
-            }
-
-            button.style.position = 'relative';
-            button.style.overflow = 'hidden';
-            button.appendChild(ripple);
-
+        hideNotification(notification) {
+            notification.classList.add('notification--hide');
             setTimeout(() => {
-                ripple.remove();
-            }, 600);
-        }
-
-        setupClickEffects() {
-            // Add click animations to interactive elements
-            const interactiveElements = document.querySelectorAll('a, button, .tool-tag, .tech-tag');
-            
-            interactiveElements.forEach(element => {
-                element.addEventListener('click', function() {
-                    this.style.transform = 'scale(0.95)';
-                    setTimeout(() => {
-                        this.style.transform = '';
-                    }, 150);
-                });
-            });
-        }
-
-        setupKeyboardNavigation() {
-            // Enhance keyboard navigation
-            document.addEventListener('keydown', (e) => {
-                // ESC to close mobile menu
-                if (e.key === 'Escape' && nav.querySelector('.nav__menu.active')) {
-                    navigation.toggleMobileMenu();
-                }
-            });
-
-            // Add focus indicators
-            const focusableElements = document.querySelectorAll('a, button, input, textarea, select');
-            focusableElements.forEach(element => {
-                element.addEventListener('focus', function() {
-                    this.style.outline = '2px solid var(--color-primary)';
-                    this.style.outlineOffset = '2px';
-                });
-
-                element.addEventListener('blur', function() {
-                    this.style.outline = '';
-                    this.style.outlineOffset = '';
-                });
-            });
-        }
-
-        setupParallaxEffects() {
-            const hero = document.querySelector('.hero');
-            
-            if (hero) {
-                window.addEventListener('scroll', Utils.throttle(() => {
-                    const scrolled = window.pageYOffset;
-                    const parallaxElement = hero.querySelector('.hero__visual');
-                    
-                    if (parallaxElement) {
-                        const speed = scrolled * 0.3;
-                        parallaxElement.style.transform = `translateY(${speed}px)`;
-                    }
-                }, 10));
-            }
+                notification.remove();
+            }, 300); // Match CSS transition duration
         }
     }
 
-    // Performance Monitoring
-    class PerformanceMonitor {
-        constructor() {
-            this.init();
-        }
-
-        init() {
-            this.optimizeImages();
-            this.handleVisibilityChange();
-        }
-
-        optimizeImages() {
-            // Lazy load images if any are added later
-            if ('IntersectionObserver' in window) {
-                const imageObserver = new IntersectionObserver((entries, observer) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            const img = entry.target;
-                            img.src = img.dataset.src;
-                            img.classList.remove('lazy');
-                            observer.unobserve(img);
-                        }
-                    });
-                });
-
-                const lazyImages = document.querySelectorAll('img[data-src]');
-                lazyImages.forEach(img => imageObserver.observe(img));
-            }
-        }
-
-        handleVisibilityChange() {
-            document.addEventListener('visibilitychange', () => {
-                if (document.hidden) {
-                    // Pause animations when tab is not visible
-                    document.body.style.animationPlayState = 'paused';
-                } else {
-                    // Resume animations when tab becomes visible
-                    document.body.style.animationPlayState = 'running';
-                }
-            });
-        }
-    }
-
-    // Initialize all managers
-    const themeManager = new ThemeManager();
-    const navigation = new Navigation();
-    const animationManager = new AnimationManager();
-    const formManager = new FormManager();
-    const interactiveEnhancements = new InteractiveEnhancements();
-    const performanceMonitor = new PerformanceMonitor();
-
-    // Global error handling
-    window.addEventListener('error', (e) => {
-        console.error('Portfolio error:', e.error);
-    });
-
-    // Console message for developers
-    console.log(`
-    👋 Hello there, fellow developer!
-    
-    Thanks for checking out Jackson's portfolio.
-    This site was built with modern web technologies:
-    - Vanilla JavaScript (ES6+)
-    - CSS Grid & Flexbox
-    - CSS Custom Properties
-    - Intersection Observer API
-    - Local Storage API
-    
-    Feel free to reach out if you have any questions!
-    `);
-
+    // TYPING ANIMATION - PRESERVED COMPLETELY
+    // This is the key animation effect that must be kept exactly as is
     const texts = [
         "Hi, I'm Jackson Kovarik",
         "Welcome To My Portfolio",
     ];
 
-  const typingDelay = 150;
-  const erasingDelay = 100;
-  const newTextDelay = 2000; // Delay before typing next text
-  let textIndex = 0;
-  let charIndex = 0;
+    const typingDelay = 150;
+    const erasingDelay = 100;
+    const newTextDelay = 2000; // Delay before typing next text
+    let textIndex = 0;
+    let charIndex = 0;
 
-  const typedTextSpan = document.getElementById("typed-text");
-  const cursorSpan = document.querySelector(".cursor");
-
-  function type() {
-    if (charIndex < texts[textIndex].length) {
-      typedTextSpan.textContent += texts[textIndex].charAt(charIndex);
-      charIndex++;
-      setTimeout(type, typingDelay);
-    } else {
-      setTimeout(erase, newTextDelay);
+    function type() {
+        if (charIndex < texts[textIndex].length) {
+            domCache.typedTextSpan.textContent += texts[textIndex].charAt(charIndex);
+            charIndex++;
+            setTimeout(type, typingDelay);
+        } else {
+            setTimeout(erase, newTextDelay);
+        }
     }
-  }
 
-  function erase() {
-    if (charIndex > 0) {
-      typedTextSpan.textContent = texts[textIndex].substring(0, charIndex - 1);
-      charIndex--;
-      setTimeout(erase, erasingDelay);
-    } else {
-      textIndex++;
-      if (textIndex >= texts.length) textIndex = 0;
-      setTimeout(type, typingDelay + 1100);
+    function erase() {
+        if (charIndex > 0) {
+            domCache.typedTextSpan.textContent = texts[textIndex].substring(0, charIndex - 1);
+            charIndex--;
+            setTimeout(erase, erasingDelay);
+        } else {
+            textIndex++;
+            if (textIndex >= texts.length) textIndex = 0;
+            setTimeout(type, typingDelay + 1100);
+        }
     }
-  }
 
-  // Start the typing effect
-  if (typedTextSpan) {
-    type();
-  }
+    // Initialize all managers
+    new ThemeManager();
+    new Navigation();
+    new FormManager();
 
+    // Start the typing effect if element exists
+    if (domCache.typedTextSpan) {
+        type();
+    }
+
+    // Fade-in on scroll using Intersection Observer
+    const fadeEls = document.querySelectorAll('.fade-in');
+    const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('fade-in--visible');
+                obs.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1 });
+
+    fadeEls.forEach(el => observer.observe(el));
 });
